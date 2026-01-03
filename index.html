@@ -1,247 +1,203 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ANKORMESSAJERY</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANKORMESSAJERY — Login</title>
 
 <style>
-/* 🎨 COLORES PERSONALIZABLES */
-:root{
-  --bg-dark:#0f1220;
-  --bg-panel:#11162e;
-  --bg-light:#151b36;
-  --primary:#5c6cff;
-  --accent:#2ee6a8;
-  --text:#ffffff;
-  --secondary:#9aa3ff;
-}
-
-/* RESET */
 body{
   margin:0;
-  font-family: Arial, Helvetica, sans-serif;
-  background:var(--bg-dark);
-  color:var(--text);
+  background:#0f1220;
+  color:white;
+  font-family:Arial;
 }
 
-/* 🌍 LAYOUT */
-.app{
-  display:flex;
-  height:100vh;
+/* CONTENEDOR */
+.box{
+  max-width:380px;
+  margin:70px auto;
+  padding:25px;
+  background:#141a34;
+  border-radius:12px;
 }
 
-/* SERVERS */
-.servers{
-  width:80px;
-  background:#0a0d18;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  padding-top:15px;
-  gap:12px;
-}
-
-.server{
-  width:50px;
-  height:50px;
-  border-radius:50%;
-  background:var(--primary);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-weight:bold;
-  cursor:pointer;
-  transition:0.2s;
-}
-
-.server:hover{
-  transform:scale(1.1) rotate(2deg);
-}
-
-/* SIDEBAR */
-.sidebar{
-  width:260px;
-  background:#13172b;
-  padding:15px;
-}
-
-.channel{
+/* INPUTS */
+input{
+  width:100%;
   padding:10px;
-  border-radius:6px;
-  cursor:pointer;
-  transition:0.2s;
+  border-radius:7px;
+  border:none;
+  margin-top:8px;
+  background:#1d2550;
+  color:white;
 }
-
-.channel:hover{
-  background:#1d2342;
-  transform:translateX(3px);
-}
-
-/* CHAT */
-.chat{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  background:var(--bg-light);
-}
-
-/* HEADER */
-.chat-header{
-  padding:12px;
-  background:var(--bg-panel);
+button{
+  width:100%;
+  margin-top:10px;
+  padding:10px;
+  border-radius:7px;
+  border:none;
   font-weight:bold;
-  border-bottom:1px solid #1f264b;
+  cursor:pointer;
+  background:#5c6cff;
+  color:white;
 }
 
-/* MESSAGES */
-.messages{
-  flex:1;
-  padding:15px;
-  overflow-y:auto;
-}
-
-.message{
-  margin-bottom:14px;
-  display:flex;
-  gap:10px;
-  animation:fadeIn .25s ease forwards;
-  opacity:0;
-}
-
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(5px);}
-  to{opacity:1; transform:none;}
-}
+.hide{display:none;}
 
 .avatar{
-  width:40px;
-  height:40px;
+  width:60px;
+  height:60px;
   border-radius:50%;
-  background:var(--accent);
+  background:#2ee6a8;
   display:flex;
   justify-content:center;
   align-items:center;
+  font-size:25px;
   font-weight:bold;
+  margin:auto;
 }
 
-/* TEXT */
-.message-text{
-  background:#1b2246;
-  padding:10px 12px;
-  border-radius:10px;
-}
-
-.message-user{
-  font-weight:bold;
-  color:var(--secondary);
-}
-
-/* INPUT AREA */
-.input{
-  padding:12px;
-  border-top:1px solid #1f264b;
-  background:var(--bg-panel);
-  display:flex;
-  gap:10px;
-}
-
-.input input{
-  flex:1;
-  padding:10px;
-  border-radius:8px;
-  border:none;
-  outline:none;
-  background:#1b2246;
-  color:white;
-}
-
-.send-btn{
-  padding:10px 14px;
-  border-radius:8px;
-  border:none;
-  cursor:pointer;
-  font-weight:bold;
-  background:var(--primary);
-  color:white;
-  transition:.2s;
-}
-
-.send-btn:hover{
-  transform:scale(1.05);
-}
-
-/* 📱 RESPONSIVE */
-@media (max-width:900px){
-  .servers{display:none;}
-  .sidebar{display:none;}
-}
+a{color:#6f8dff; cursor:pointer}
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<!-- LOGIN -->
+<div class="box" id="loginBox">
+  <h2>Iniciar Sesión</h2>
 
-  <div class="servers">
-    <div class="server">A</div>
-    <div class="server">M</div>
-    <div class="server">Y</div>
-  </div>
+  <input id="loginUser" placeholder="Usuario">
+  <input id="loginPass" type="password" placeholder="Contraseña">
 
-  <div class="sidebar">
-    <h3>Canales</h3>
-    <div class="channel"># general</div>
-    <div class="channel"># anuncios</div>
-    <div class="channel"># soporte</div>
-  </div>
+  <button onclick="login()">Entrar</button>
 
-  <div class="chat">
-    <div class="chat-header">
-      # general — ANKORMESSAJERY
-    </div>
+  <p>¿No tienes cuenta? <a onclick="showRegister()">Regístrate</a></p>
+</div>
 
-    <div class="messages" id="messages">
-      <div class="message">
-        <div class="avatar">S</div>
-        <div class="message-text">
-          <span class="message-user">Sistema</span><br>
-          Bienvenido a ANKORMESSAJERY 🎧
-        </div>
-      </div>
-    </div>
+<!-- REGISTRO -->
+<div class="box hide" id="registerBox">
+  <h2>Crear Cuenta</h2>
 
-    <div class="input">
-      <input id="msgBox" type="text" placeholder="Escribe un mensaje...">
-      <button class="send-btn" onclick="send()">Enviar</button>
-    </div>
-  </div>
+  <input id="regUser" placeholder="Usuario">
+  <input id="regPass" type="password" placeholder="Contraseña">
 
+  <button onclick="register()">Registrar</button>
+
+  <p>¿Ya tienes cuenta? <a onclick="showLogin()">Inicia sesión</a></p>
+</div>
+
+<!-- PERFIL -->
+<div class="box hide" id="profileBox">
+  <div class="avatar" id="avatarBox"></div>
+
+  <h2 id="welcome"></h2>
+
+  <h3>Cambiar nombre</h3>
+  <input id="newName" placeholder="Nuevo nombre">
+  <button onclick="changeName()">Guardar</button>
+
+  <h3>Cambiar Avatar (1 letra)</h3>
+  <input id="newAvatar" maxlength="1" placeholder="A">
+  <button onclick="changeAvatar()">Actualizar</button>
+
+  <button style="background:red" onclick="logout()">Cerrar sesión</button>
 </div>
 
 <script>
-function send(){
-  let box = document.getElementById("msgBox");
-  let text = box.value.trim();
-  if(!text) return;
+// guardar usuarios
+let users = JSON.parse(localStorage.getItem("users")) || {};
+let session = localStorage.getItem("session");
 
-  let chat = document.getElementById("messages");
-
-  let div = document.createElement("div");
-  div.className="message";
-  div.innerHTML = `
-    <div class="avatar">U</div>
-    <div class="message-text">
-      <span class="message-user">Usuario</span><br>
-      ${text}
-    </div>
-  `;
-
-  chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
-
-  box.value = "";
+// mostrar pantallas
+function showLogin(){
+  loginBox.classList.remove("hide");
+  registerBox.classList.add("hide");
+  profileBox.classList.add("hide");
 }
+function showRegister(){
+  loginBox.classList.add("hide");
+  registerBox.classList.remove("hide");
+  profileBox.classList.add("hide");
+}
+function showProfile(){
+  loginBox.classList.add("hide");
+  registerBox.classList.add("hide");
+  profileBox.classList.remove("hide");
+}
+
+// registrar
+function register(){
+  let u = regUser.value.trim();
+  let p = regPass.value.trim();
+
+  if(!u || !p) return alert("Completa todo");
+
+  if(users[u]) return alert("Ese usuario ya existe");
+
+  users[u] = {password:p, name:u, avatar:u[0].toUpperCase()};
+  localStorage.setItem("users",JSON.stringify(users));
+
+  alert("Registro exitoso 😄");
+  showLogin();
+}
+
+// login
+function login(){
+  let u = loginUser.value.trim();
+  let p = loginPass.value.trim();
+
+  if(!users[u]) return alert("Usuario no encontrado");
+  if(users[u].password!==p) return alert("Contraseña incorrecta");
+
+  session = u;
+  localStorage.setItem("session",u);
+
+  loadProfile();
+}
+
+// cargar perfil
+function loadProfile(){
+  if(!session) return showLogin();
+
+  let user = users[session];
+  welcome.innerText = "Bienvenido " + user.name;
+  avatarBox.innerText = user.avatar;
+
+  showProfile();
+}
+
+// cambiar nombre
+function changeName(){
+  let n = newName.value.trim();
+  if(!n) return;
+
+  users[session].name = n;
+  localStorage.setItem("users",JSON.stringify(users));
+  loadProfile();
+}
+
+// cambiar avatar
+function changeAvatar(){
+  let a = newAvatar.value.trim().toUpperCase();
+  if(!a) return;
+
+  users[session].avatar = a;
+  localStorage.setItem("users",JSON.stringify(users));
+  loadProfile();
+}
+
+// cerrar sesión
+function logout(){
+  localStorage.removeItem("session");
+  session = null;
+  showLogin();
+}
+
+// si hay sesión activa
+if(session) loadProfile();
 </script>
 
 </body>
